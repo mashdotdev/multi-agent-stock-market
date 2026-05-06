@@ -11,19 +11,14 @@ function LegendItem({ on, color, label, onClick }: ItemProps) {
   return (
     <button
       onClick={onClick}
-      className="mono"
-      style={{
-        display: "inline-flex", alignItems: "center", gap: 6,
-        border: 0, background: "transparent", padding: "2px 4px",
-        fontSize: 11, color: on ? "var(--ink-soft)" : "var(--muted-2)",
-        cursor: "pointer",
-      }}
+      className={`mono inline-flex items-center gap-1.5 border-0 bg-transparent px-1 py-0.5 text-[11px] cursor-pointer transition-colors ${
+        on ? "text-ink-soft" : "text-muted-2"
+      }`}
     >
-      <span style={{
-        width: 14, height: 2,
-        background: on ? color : "var(--muted-2)",
-        display: "inline-block", borderRadius: 2,
-      }} />
+      <span
+        className="inline-block rounded-sm"
+        style={{ width: 14, height: 2, background: on ? color : "var(--muted-2)" }}
+      />
       {label}
     </button>
   );
@@ -37,7 +32,7 @@ type Props = {
 
 export function SMALegend({ showSMA20, showSMA50, onToggle }: Props) {
   return (
-    <div style={{ display: "inline-flex", gap: 8 }}>
+    <div className="inline-flex gap-2">
       <LegendItem
         on={showSMA20}
         color="oklch(0.62 0.13 70)"

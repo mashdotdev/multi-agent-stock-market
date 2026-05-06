@@ -13,13 +13,8 @@ export function MessageBubble({ msg, agentMap }: Props) {
 
   if (isUser) {
     return (
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 18 }}>
-        <div style={{
-          background: "var(--ink)", color: "var(--surface)",
-          borderRadius: 14, borderTopRightRadius: 4,
-          padding: "10px 14px", maxWidth: "78%",
-          fontSize: 14, lineHeight: 1.5,
-        }}>
+      <div className="flex justify-end mb-[18px]">
+        <div className="bg-ink text-surface rounded-[14px] rounded-tr-[4px] px-3.5 py-2.5 max-w-[78%] text-sm leading-relaxed">
           {msg.displayText}
         </div>
       </div>
@@ -28,19 +23,19 @@ export function MessageBubble({ msg, agentMap }: Props) {
 
   const agent = msg.agent ? agentMap[msg.agent] : undefined;
   return (
-    <div style={{ display: "flex", gap: 10, marginBottom: 18 }}>
+    <div className="flex gap-2.5 mb-[18px]">
       {agent && <AgentAvatar agent={agent} size={30} />}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 8, marginBottom: 4 }}>
-          <span style={{ fontSize: 13, fontWeight: 600 }}>{agent?.name ?? "Assistant"}</span>
-          <span style={{ fontSize: 11, color: "var(--muted)" }}>{msg.time ?? ""}</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-baseline gap-2 mb-1">
+          <span className="text-[13px] font-semibold text-ink">
+            {agent?.name ?? "Assistant"}
+          </span>
+          <span className="text-[11px] text-[var(--muted)]">{msg.time ?? ""}</span>
         </div>
         <div
-          className={msg.streaming ? "cursor" : ""}
-          style={{
-            fontSize: 14, lineHeight: 1.6, color: "var(--ink-soft)",
-            whiteSpace: "pre-wrap",
-          }}
+          className={`text-sm leading-relaxed text-ink-soft whitespace-pre-wrap ${
+            msg.streaming ? "cursor" : ""
+          }`}
         >
           {msg.displayText}
         </div>

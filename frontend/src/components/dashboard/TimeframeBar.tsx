@@ -9,27 +9,16 @@ type Props = {
 
 export function TimeframeBar({ active = "1M", onChange }: Props) {
   return (
-    <div style={{
-      display: "inline-flex",
-      border: "1px solid var(--hairline)",
-      borderRadius: 8,
-      overflow: "hidden",
-    }}>
+    <div className="inline-flex border border-hairline rounded-lg overflow-hidden">
       {TIMEFRAMES.map((tf) => (
         <button
           key={tf}
           onClick={() => onChange?.(tf)}
-          className="mono"
-          style={{
-            border: 0,
-            background: tf === active ? "var(--ink)" : "transparent",
-            color: tf === active ? "var(--surface)" : "var(--ink-soft)",
-            padding: "5px 10px",
-            fontSize: 11,
-            fontWeight: 500,
-            cursor: "pointer",
-            borderRight: "1px solid var(--hairline)",
-          }}
+          className={`mono border-0 border-r border-hairline px-2.5 py-[5px] text-[11px] font-medium cursor-pointer transition-colors ${
+            tf === active
+              ? "bg-ink text-surface"
+              : "bg-transparent text-ink-soft hover:bg-surface-2"
+          }`}
         >
           {tf}
         </button>

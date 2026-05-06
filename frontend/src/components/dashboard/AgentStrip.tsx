@@ -11,43 +11,33 @@ type Props = {
 
 export function AgentStrip({ agents, agentStates, ticker }: Props) {
   return (
-    <div style={{
-      background: "var(--surface)",
-      borderBottom: "1px solid var(--hairline)",
-      padding: "12px 24px",
-      display: "flex", alignItems: "center", gap: 24,
-    }}>
+    <div className="bg-surface border-b border-hairline px-6 py-3 flex items-center gap-6">
+
       {/* Logo */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
-        <div style={{
-          width: 24, height: 24, borderRadius: 6,
-          background: "var(--ink)", color: "var(--surface)",
-          display: "grid", placeItems: "center",
-          fontFamily: "var(--font-jetbrains-mono), ui-monospace",
-          fontWeight: 700, fontSize: 12,
-        }}>
+      <div className="flex items-center gap-2.5 shrink-0">
+        <div className="w-6 h-6 rounded-[6px] bg-ink text-surface grid place-items-center mono font-bold text-xs">
           Σ
         </div>
-        <span style={{ fontWeight: 600, fontSize: 14 }}>Sigma Desk</span>
+        <span className="font-semibold text-sm text-ink">Sigma Desk</span>
       </div>
 
       {/* Divider */}
-      <div style={{ width: 1, height: 24, background: "var(--hairline)", flexShrink: 0 }} />
+      <div className="w-px h-6 bg-hairline shrink-0" />
 
       {/* Agent pipeline */}
-      <div style={{ display: "flex", gap: 18, flex: 1 }}>
+      <div className="flex gap-[18px] flex-1">
         {agents.map((a, i) => {
           const state = agentStates[a.id] ?? "idle";
           return (
-            <div key={a.id} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+            <div key={a.id} className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 min-w-0">
                 <AgentAvatar agent={a} size={30} />
-                <div style={{ minWidth: 0 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    <span style={{ fontSize: 12, fontWeight: 600 }}>{a.name}</span>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-xs font-semibold text-ink">{a.name}</span>
                     <span className={"dot " + state} />
                   </div>
-                  <div style={{ fontSize: 10, color: "var(--muted)", whiteSpace: "nowrap" }}>
+                  <div className="text-[10px] text-[var(--muted)] whitespace-nowrap">
                     {state === "idle" ? a.role : a.task}
                   </div>
                 </div>
@@ -55,7 +45,7 @@ export function AgentStrip({ agents, agentStates, ticker }: Props) {
               {i < agents.length - 1 && (
                 <svg
                   width="20" height="20" viewBox="0 0 20 20"
-                  style={{ alignSelf: "center", flexShrink: 0, marginLeft: 8 }}
+                  className="self-center shrink-0 ml-2"
                 >
                   <path
                     d="M5 10 L15 10 M11 6 L15 10 L11 14"
@@ -69,9 +59,7 @@ export function AgentStrip({ agents, agentStates, ticker }: Props) {
       </div>
 
       {/* Timestamp */}
-      <span className="mono" style={{ fontSize: 11, color: "var(--muted)", flexShrink: 0 }}>
-        {ticker.asOf}
-      </span>
+      <span className="mono text-[11px] text-[var(--muted)] shrink-0">{ticker.asOf}</span>
     </div>
   );
 }

@@ -11,21 +11,18 @@ type Props = { ticker: Ticker };
 export function ChartHeader({ ticker }: Props) {
   const up = ticker.change >= 0;
   return (
-    <div style={{ display: "flex", alignItems: "baseline", gap: 14, flexWrap: "wrap" }}>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-        <span className="mono" style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.01em" }}>
+    <div className="flex items-baseline gap-3.5 flex-wrap">
+      <div className="flex items-baseline gap-2">
+        <span className="mono text-[22px] font-semibold tracking-tight text-ink">
           {ticker.symbol}
         </span>
-        <span style={{ color: "var(--muted)", fontSize: 13 }}>{ticker.name}</span>
+        <span className="text-[var(--muted)] text-sm">{ticker.name}</span>
       </div>
-      <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-        <span className="mono" style={{ fontSize: 28, fontWeight: 600 }}>
+      <div className="flex items-baseline gap-2">
+        <span className="mono text-[28px] font-semibold text-ink">
           ${fmtUSD(ticker.price)}
         </span>
-        <span
-          className={"mono " + (up ? "up" : "down")}
-          style={{ fontSize: 13, fontWeight: 500 }}
-        >
+        <span className={`mono text-sm font-medium ${up ? "up" : "down"}`}>
           {up ? "+" : ""}{fmtUSD(ticker.change)} ({up ? "+" : ""}{ticker.changePct.toFixed(2)}%)
         </span>
       </div>

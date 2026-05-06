@@ -19,67 +19,35 @@ export function ChatComposer({ onSend, prompts = [] }: Props) {
   return (
     <div>
       {prompts.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 10 }}>
+        <div className="flex flex-wrap gap-1.5 mb-2.5">
           {prompts.map((p) => (
             <button
               key={p}
               onClick={() => onSend(p)}
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 6,
-                fontSize: 12, color: "var(--ink-soft)",
-                border: "1px solid var(--hairline)",
-                background: "var(--surface)",
-                padding: "4px 10px", borderRadius: 999,
-                cursor: "pointer",
-                transition: "background .15s, color .15s",
-              }}
+              className="inline-flex items-center text-xs text-ink-soft border border-hairline bg-surface px-2.5 py-1 rounded-full cursor-pointer transition-colors hover:bg-surface-2 hover:text-ink"
             >
               {p}
             </button>
           ))}
         </div>
       )}
-      <div style={{ display: "flex", gap: 8, alignItems: "flex-end" }}>
+      <div className="flex gap-2 items-end">
         <textarea
           rows={1}
           placeholder="Ask the agents about a ticker, setup, or strategy…"
           value={val}
           onChange={(e) => setVal(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); submit(); }
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              submit();
+            }
           }}
-          style={{
-            flex: 1,
-            fontFamily: "inherit", color: "var(--ink)",
-            background: "var(--surface)",
-            border: "1px solid var(--hairline-strong)",
-            borderRadius: 10,
-            padding: "10px 12px",
-            outline: "none",
-            resize: "none",
-            minHeight: 42,
-            maxHeight: 120,
-            fontSize: 14,
-            lineHeight: 1.5,
-            transition: "border-color .15s, box-shadow .15s",
-          }}
-          onFocus={(e) => {
-            e.currentTarget.style.borderColor = "var(--accent)";
-            e.currentTarget.style.boxShadow = "0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent)";
-          }}
-          onBlur={(e) => {
-            e.currentTarget.style.borderColor = "var(--hairline-strong)";
-            e.currentTarget.style.boxShadow = "none";
-          }}
+          className="flex-1 text-ink bg-surface border border-hairline-strong rounded-[10px] px-3 py-2.5 outline-none resize-none min-h-[42px] max-h-[120px] text-sm leading-normal transition-[border-color,box-shadow] focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_color-mix(in_oklab,var(--accent)_18%,transparent)] font-[inherit]"
         />
         <button
           onClick={submit}
-          style={{
-            background: "var(--ink)", color: "var(--surface)", border: "1px solid var(--ink)",
-            borderRadius: 6, padding: "10px 16px", fontSize: 13, cursor: "pointer",
-            fontFamily: "inherit", fontWeight: 500,
-            transition: "background .15s",
-          }}
+          className="bg-ink text-surface border border-ink rounded-[6px] px-4 py-2.5 text-[13px] font-medium cursor-pointer transition-colors hover:bg-ink-soft font-[inherit]"
         >
           Send
         </button>

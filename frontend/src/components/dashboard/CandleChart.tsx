@@ -80,7 +80,7 @@ export function CandleChart({
   const gridY = Array.from({ length: ticks + 1 }, (_, k) => yMin + ((yMax - yMin) * k) / ticks);
 
   return (
-    <div ref={wrapRef} style={{ width: "100%", position: "relative" }}>
+    <div ref={wrapRef} className="w-full relative">
       <svg
         width={w}
         height={height}
@@ -91,7 +91,7 @@ export function CandleChart({
           setHover(idx);
         }}
         onMouseLeave={() => setHover(null)}
-        style={{ display: "block", overflow: "visible" }}
+        className="block overflow-visible"
       >
         {/* Gridlines */}
         {gridY.map((g, i) => (
@@ -172,20 +172,14 @@ export function CandleChart({
 
       {/* OHLC tooltip */}
       {hover != null && (
-        <div style={{
-          position: "absolute", top: 8, left: 12,
-          background: "var(--surface)", border: "1px solid var(--hairline)",
-          borderRadius: 6, padding: "6px 10px",
-          fontFamily: "var(--font-jetbrains-mono), ui-monospace", fontSize: 11,
-          display: "flex", gap: 12, color: "var(--ink-soft)",
-          pointerEvents: "none",
-        }}>
+        <div className="absolute top-2 left-3 bg-surface border border-hairline rounded-[6px] px-2.5 py-1.5 mono text-[11px] flex gap-3 text-ink-soft pointer-events-none">
           <span>D{hover + 1}</span>
           <span>O <b>{fmtUSD(candles[hover].open)}</b></span>
           <span>H <b>{fmtUSD(candles[hover].high)}</b></span>
           <span>L <b>{fmtUSD(candles[hover].low)}</b></span>
           <span>
-            C <b style={{ color: candles[hover].close >= candles[hover].open ? "var(--up)" : "var(--down)" }}>
+            C{" "}
+            <b className={candles[hover].close >= candles[hover].open ? "text-up" : "text-down"}>
               {fmtUSD(candles[hover].close)}
             </b>
           </span>

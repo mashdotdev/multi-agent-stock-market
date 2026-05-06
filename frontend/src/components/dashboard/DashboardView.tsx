@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef } from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useStreamingChat } from "@/hooks/useStreamingChat";
 import {
   AGENTS,
@@ -40,50 +39,19 @@ export function DashboardView() {
   };
 
   return (
-    <div
-      className="dashboard"
-      style={{
-        width: "100vw",
-        height: "100vh",
-        display: "grid",
-        gridTemplateRows: "auto 1fr 320px",
-        overflow: "hidden",
-      }}
-    >
+    <div className="dashboard w-screen h-screen overflow-hidden grid grid-rows-[auto_1fr_320px]">
+
       {/* Row 1: Agent pipeline strip */}
       <AgentStrip agents={AGENTS} agentStates={agentStates} ticker={TICKER} />
 
       {/* Row 2: Chart hero */}
-      <div
-        style={{
-          padding: 24,
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          className="fin-card"
-          style={{
-            flex: 1,
-            padding: 24,
-            display: "flex",
-            flexDirection: "column",
-            gap: 16,
-          }}
-        >
-          {/* Chart header + controls */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              flexWrap: "wrap",
-              gap: 16,
-            }}
-          >
+      <div className="p-6 flex flex-col overflow-hidden">
+        <div className="fin-card flex-1 p-6 flex flex-col gap-4">
+
+          {/* Header + controls */}
+          <div className="flex justify-between items-start flex-wrap gap-4">
             <ChartHeader ticker={TICKER} />
-            <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+            <div className="flex items-center gap-3.5">
               <SMALegend
                 showSMA20={overlays.sma20}
                 showSMA50={overlays.sma50}
@@ -94,8 +62,8 @@ export function DashboardView() {
           </div>
 
           {/* Candlestick chart */}
-          <div style={{ flex: 1, display: "flex", alignItems: "stretch" }}>
-            <div style={{ flex: 1 }}>
+          <div className="flex-1 flex items-stretch">
+            <div className="flex-1">
               <CandleChart
                 candles={CANDLES}
                 sma20={SMA20}
@@ -107,122 +75,50 @@ export function DashboardView() {
             </div>
           </div>
 
-          {/* Mini stats row */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(6, 1fr)",
-              gap: 16,
-              paddingTop: 14,
-              borderTop: "1px solid var(--hairline)",
-            }}
-          >
+          {/* Mini stats */}
+          <div className="grid grid-cols-6 gap-4 pt-3.5 border-t border-hairline">
             {MINI_STATS.map(({ label, value }) => (
               <div key={label}>
-                <div
-                  className="section-label"
-                  style={{ marginBottom: 2, fontSize: 10 }}
-                >
-                  {label}
-                </div>
-                <div className="mono" style={{ fontSize: 13, fontWeight: 500 }}>
-                  {value}
-                </div>
+                <div className="section-label mb-0.5 text-[10px]">{label}</div>
+                <div className="mono text-[13px] font-medium text-ink">{value}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Row 3: Bottom dock — conversation + findings */}
-      <div
-        style={{
-          borderTop: "1px solid var(--hairline)",
-          background: "var(--surface)",
-          display: "grid",
-          gridTemplateColumns: "1fr 360px",
-          overflow: "hidden",
-        }}
-      >
+      {/* Row 3: Bottom dock */}
+      <div className="border-t border-hairline bg-surface grid grid-cols-[1fr_360px] overflow-hidden">
+
         {/* Conversation panel */}
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              padding: "10px 24px",
-              borderBottom: "1px solid var(--hairline)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
+        <div className="flex flex-col overflow-hidden">
+          <div className="px-6 py-2.5 border-b border-hairline flex items-center justify-between">
             <span className="section-label">Conversation</span>
-            <span
-              className="mono"
-              style={{ fontSize: 11, color: "var(--muted)" }}
-            >
+            <span className="mono text-[11px] text-[var(--muted)]">
               {messages.length} message{messages.length !== 1 ? "s" : ""}
             </span>
           </div>
-          <div
-            ref={scrollRef}
-            className="scroll"
-            style={{ flex: 1, overflowY: "auto", padding: "14px 24px" }}
-          >
+          <div ref={scrollRef} className="scroll flex-1 overflow-y-auto px-6 py-3.5">
             {messages.map((m, i) => (
               <MessageBubble key={i} msg={m} agentMap={agentMap} />
             ))}
           </div>
-          <div
-            style={{
-              padding: "12px 24px 16px",
-              borderTop: "1px solid var(--hairline)",
-            }}
-          >
+          <div className="px-6 pt-3 pb-4 border-t border-hairline">
             <ChatComposer onSend={send} prompts={QUICK_PROMPTS.slice(0, 3)} />
           </div>
         </div>
 
         {/* Findings panel */}
-        <div
-          style={{
-            borderLeft: "1px solid var(--hairline)",
-            background: "var(--surface-2)",
-            padding: 16,
-            overflow: "auto",
-          }}
-        >
-          <div className="section-label" style={{ marginBottom: 10 }}>
-            Findings
-          </div>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              fontSize: 12,
-              lineHeight: 1.6,
-            }}
-          >
+        <div className="border-l border-hairline bg-surface-2 p-4 overflow-auto">
+          <div className="section-label mb-2.5">Findings</div>
+          <ul className="list-none p-0 m-0 text-xs leading-relaxed">
             {FINDINGS.map(({ key, value }) => (
               <li
                 key={key}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  padding: "6px 0",
-                  borderBottom: "1px solid var(--hairline)",
-                }}
+                className="flex justify-between py-1.5 border-b border-hairline"
               >
-                <span style={{ color: "var(--muted)" }}>{key}</span>
-                <span className="mono" style={{ color: "var(--ink-soft)" }}>
-                  {value}
-                </span>
+                <span className="text-[var(--muted)]">{key}</span>
+                <span className="mono text-ink-soft">{value}</span>
               </li>
             ))}
           </ul>

@@ -9,6 +9,7 @@ body {
 }
 
 @theme inline {
+    /* shadcn tokens */
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --font-sans: var(--font-karla);
@@ -50,9 +51,22 @@ body {
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+
+    /* Fintech dashboard tokens — generates text-ink, bg-surface, border-hairline, etc. */
+    --color-fin-bg:           var(--fin-bg);
+    --color-surface:          var(--surface);
+    --color-surface-2:        var(--surface-2);
+    --color-ink:              var(--ink);
+    --color-ink-soft:         var(--ink-soft);
+    --color-muted-2:          var(--muted-2);
+    --color-hairline:         var(--hairline);
+    --color-hairline-strong:  var(--hairline-strong);
+    --color-up:               var(--up);
+    --color-down:             var(--down);
 }
 
 :root {
+    /* shadcn tokens */
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -85,6 +99,23 @@ body {
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    /* Fintech tokens — non-conflicting, global, consumed by @theme above */
+    --fin-bg:           oklch(0.985 0.003 100);
+    --surface:          #ffffff;
+    --surface-2:        oklch(0.975 0.004 100);
+    --ink:              oklch(0.18 0.01 260);
+    --ink-soft:         oklch(0.32 0.01 260);
+    --muted-2:          oklch(0.7 0.008 260);
+    --hairline:         oklch(0.92 0.005 260);
+    --hairline-strong:  oklch(0.86 0.006 260);
+    --up:               oklch(0.62 0.13 155);
+    --up-soft:          oklch(0.96 0.04 155);
+    --down:             oklch(0.6 0.18 25);
+    --down-soft:        oklch(0.97 0.04 25);
+    --agent-fetcher:    oklch(0.62 0.12 220);
+    --agent-analyst:    oklch(0.62 0.13 155);
+    --agent-writer:     oklch(0.62 0.14 300);
 }
 
 .dark {
@@ -137,37 +168,19 @@ body {
     }
 }
 
-/* ─── Fintech design tokens (scoped to .dashboard to avoid shadcn conflicts) ─── */
+/* ─── .dashboard: override only the tokens that conflict with shadcn ─── */
 .dashboard {
-    --bg:              oklch(0.985 0.003 100);
-    --surface:         #ffffff;
-    --surface-2:       oklch(0.975 0.004 100);
-    --ink:             oklch(0.18 0.01 260);
-    --ink-soft:        oklch(0.32 0.01 260);
-    --muted:           oklch(0.55 0.01 260);
-    --muted-2:         oklch(0.7 0.008 260);
-    --hairline:        oklch(0.92 0.005 260);
-    --hairline-strong: oklch(0.86 0.006 260);
-    --accent:          oklch(0.55 0.15 265);
-    --accent-soft:     oklch(0.96 0.03 265);
-    --accent-ink:      oklch(0.35 0.12 265);
-    --up:              oklch(0.62 0.13 155);
-    --up-soft:         oklch(0.96 0.04 155);
-    --down:            oklch(0.6 0.18 25);
-    --down-soft:       oklch(0.97 0.04 25);
-    --agent-fetcher:   oklch(0.62 0.12 220);
-    --agent-analyst:   oklch(0.62 0.13 155);
-    --agent-writer:    oklch(0.62 0.14 300);
-    --r-sm: 6px;
-    --r-md: 10px;
-    --r-lg: 14px;
-    background: var(--bg);
+    --accent:      oklch(0.55 0.15 265);
+    --accent-soft: oklch(0.96 0.03 265);
+    --accent-ink:  oklch(0.35 0.12 265);
+    --muted:       oklch(0.55 0.01 260);
+    background: var(--fin-bg);
     color: var(--ink);
     font-family: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 
-/* ─── Utility classes (global, no shadcn conflict — shadcn uses Tailwind classes) ─── */
+/* ─── Utility classes ─── */
 .mono {
     font-family: var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-feature-settings: "tnum" 1;
@@ -179,7 +192,7 @@ body {
 .fin-card {
     background: var(--surface);
     border: 1px solid var(--hairline);
-    border-radius: var(--r-md);
+    border-radius: 10px;
 }
 
 .scroll::-webkit-scrollbar       { width: 8px; height: 8px; }
