@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"const p = require\\('@prisma/client'\\); console.log\\(Object.keys\\(p\\).slice\\(0, 20\\)\\)\")",
+      "Bash(npx prisma *)",
+      "Bash(bun --bun run prisma generate)",
+      "Bash(Select-String -Path \"A:\\\\Coding\\\\portfolio\\\\latest-portfolio\\\\multi-agent-stock-market\\\\frontend\\\\app\\\\generated\\\\prisma\\\\client.ts\" -Pattern \"PrismaClient|export\")",
+      "Bash(Select-Object -First 15)",
+      "Bash(bun x *)",
+      "mcp__plugin_context7_context7__resolve-library-id",
+      "mcp__plugin_context7_context7__query-docs",
+      "Bash(Remove-Item -Recurse -Force .next)",
+      "PowerShell($bytes = [System.IO.File]::ReadAllBytes\\(\"A:\\\\Coding\\\\portfolio\\\\latest-portfolio\\\\multi-agent-stock-market\\\\frontend\\\\public\\\\images\\\\auth-image.jpg\"\\); \"First 4 bytes: $\\($bytes[0..3] | ForEach-Object { '{0:X2}' -f $_ }\\)\")"
+    ]
+  }
+}
